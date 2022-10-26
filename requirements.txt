@@ -1,5 +1,5 @@
-torch==1.6.0
-torchvision==0.7.0
+torch==1.8.1
+torchvision==0.9.1
 open3d==0.10.0.0
 scikit-image==0.17.2
 termcolor==1.1.0
