@@ -7,23 +7,12 @@ RUN apt-key del 7fa2af80
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/7fa2af80.pub
 
-
-# # python base
-# RUN apt-get install -y --no-install-recommends \
-#         wget \
-#         ca-certificates \
-#         python3-dev \
-#         python3-pyqt5.qtsvg \
-#         python3-distutils \
-#         build-essential \
-#         manpages-dev \
-#         git
-
-# RUN wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.0-1_all.deb
-# RUN dpkg -i cuda-keyring_1.0-1_all.deb
-
 RUN apt update && apt -y install sudo
 RUN sudo apt -y install vim build-essential git libgtk2.0-dev libgl1-mesa-dev
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        tmux \
+        python3-pip
 
 COPY . /workspace
 
@@ -35,6 +24,7 @@ COPY . /workspace
 
 WORKDIR /workspace
 RUN pip install -e .
+RUN pip install protobuf==3.20.*
 
 RUN mkdir -p /workspace/persistent_storage/checkpoints/
 RUN mkdir -p /workspace/persistent_storage/runs/
